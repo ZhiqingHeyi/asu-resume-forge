@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASU FORGE · 阿酥式简历锻造炉 — 把真实经历，锻造成作品级履历</title>
+<meta name="description" content="开源 AI Skill：蒸馏阿酥式高密度叙事，融合实战验证的岗位透镜与指标口径校验。只放大，不虚构。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0b0f; --bg2:#0e1016; --card:#12141d; --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.12);
+  --ink:#f4f2ec; --body:#9ba1b0; --muted:#5d6474;
+  --fire:#ff7a2f; --ember:#ff4d1f; --gold:#e6b34d; --gold2:#f5d78e;
+  --serif:"Noto Serif SC",STSong,serif;
+  --sans:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--body);font-family:var(--sans);line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--serif);color:var(--ink);font-weight:900;letter-spacing:.02em}
+a{color:inherit;text-decoration:none}
+::selection{background:rgba(230,179,77,.28);color:#fff}
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+section{padding:120px 0;position:relative}
+
+/* grain */
+body::after{content:"";position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.16,.8,.26,1),transform 1s cubic-bezier(.16,.8,.26,1)}
+.reveal.on{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ===== Nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:all .4s}
+nav.scrolled{background:rgba(10,11,15,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1160px;margin:0 auto;padding:20px 32px;display:flex;align-items:center;gap:32px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-weight:900;color:var(--ink);font-size:19px;letter-spacing:2px}
+.brand .flame{width:34px;height:34px;border-radius:10px;background:linear-gradient(140deg,var(--ember),var(--gold));display:grid;place-items:center;font-size:16px;box-shadow:0 0 24px rgba(255,110,40,.5)}
+.nav-links{display:flex;gap:30px;margin-left:auto;font-size:13.5px;letter-spacing:.5px}
+.nav-links a{color:var(--body);transition:color .25s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{border:1px solid rgba(230,179,77,.5);color:var(--gold2) !important;font-weight:600;padding:8px 20px;border-radius:999px;font-size:13px;transition:all .3s}
+.nav-cta:hover{background:rgba(230,179,77,.12);box-shadow:0 0 20px rgba(230,179,77,.2)}
+@media(max-width:860px){.nav-links{display:none}}
+
+/* ===== Hero ===== */
+.hero{min-height:100vh;display:flex;align-items:center;padding:160px 0 100px;text-align:center;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:-320px;left:50%;transform:translateX(-50%);width:1100px;height:760px;background:radial-gradient(ellipse at center,rgba(255,100,35,.14),transparent 62%);pointer-events:none}
+.embers{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.embers i{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0;animation:rise 7s infinite ease-in}
+@keyframes rise{0%{transform:translateY(0) scale(1);opacity:0}12%{opacity:.9}100%{transform:translateY(-88vh) scale(.2);opacity:0}}
+.hero-kicker{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:4px;color:var(--gold2);border:1px solid rgba(230,179,77,.3);border-radius:999px;padding:9px 22px;background:rgba(230,179,77,.05)}
+.hero-kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.hero h1{font-size:clamp(44px,7.4vw,86px);line-height:1.22;margin:40px 0 8px;font-weight:900}
+.hero h1 .row2{display:block;background:linear-gradient(105deg,#fff 5%,var(--gold2) 45%,var(--fire) 85%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-rule{width:64px;height:2px;background:linear-gradient(90deg,var(--ember),var(--gold));margin:34px auto}
+.hero p.sub{max-width:620px;margin:0 auto;font-size:16.5px;color:var(--body);font-weight:400}
+.hero p.sub b{color:var(--ink);font-weight:700}
+.cta-row{display:flex;gap:16px;justify-content:center;margin-top:46px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 34px;border-radius:999px;font-weight:700;font-size:15px;letter-spacing:1px;transition:all .3s}
+.btn:hover{transform:translateY(-3px)}
+.btn-fire{background:linear-gradient(135deg,var(--ember),var(--gold));color:#181003;box-shadow:0 8px 34px rgba(255,110,40,.35)}
+.btn-fire:hover{box-shadow:0 14px 44px rgba(255,110,40,.5)}
+.btn-ghost{border:1px solid var(--line2);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold2)}
+.stats{display:flex;justify-content:center;margin-top:90px;flex-wrap:wrap}
+.stat{padding:10px 52px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-family:var(--serif);font-size:34px;color:var(--ink);font-weight:900}
+.stat span{font-size:12px;color:var(--muted);letter-spacing:2px}
+@media(max-width:640px){.stat{padding:10px 26px}}
+
+/* ===== Section head ===== */
+.shead{display:flex;align-items:baseline;gap:26px;margin-bottom:20px}
+.snum{font-family:var(--serif);font-size:15px;color:var(--fire);font-weight:700;letter-spacing:3px;white-space:nowrap}
+.shead .line{flex:1;height:1px;background:var(--line)}
+.h2{font-size:clamp(30px,4.4vw,46px);line-height:1.35;margin-bottom:18px}
+.lead{max-width:660px;font-size:16px}
+
+/* ===== Before / After ===== */
+.ba-grid{display:grid;grid-template-columns:1fr 56px 1fr;gap:0;margin-top:60px;align-items:stretch}
+@media(max-width:900px){.ba-grid{grid-template-columns:1fr}.ba-vs{margin:18px auto !important}}
+.ba-card{border-radius:20px;padding:36px 34px;border:1px solid var(--line);background:var(--card);position:relative}
+.ba-card.after{border-color:rgba(230,179,77,.4);background:linear-gradient(165deg,rgba(230,179,77,.08),var(--card) 50%);box-shadow:0 0 60px rgba(230,179,77,.06)}
+.ba-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:3px;padding:5px 16px;border-radius:999px;margin-bottom:20px}
+.ba-card.before .ba-tag{border:1px solid var(--line2);color:var(--muted)}
+.ba-card.after .ba-tag{background:linear-gradient(135deg,var(--ember),var(--gold));color:#181003}
+.ba-card pre{white-space:pre-wrap;font-family:var(--mono);font-size:13px;line-height:2;color:var(--body)}
+.ba-card .strike{color:#c0594f;text-decoration:line-through;text-decoration-color:rgba(192,89,79,.55)}
+.ba-card .hl{color:var(--gold2);font-weight:600}
+.ba-note{margin-top:22px;font-size:13.5px;color:var(--muted);border-top:1px dashed var(--line2);padding-top:18px}
+.ba-note b{color:var(--gold)}
+.ba-vs{display:flex;align-items:center;justify-content:center}
+.ba-vs span{width:46px;height:46px;border-radius:50%;border:1px solid rgba(230,179,77,.45);display:grid;place-items:center;font-family:var(--serif);font-weight:900;font-size:13px;color:var(--gold2);background:var(--bg);box-shadow:0 0 30px rgba(230,179,77,.15);z-index:2}
+
+/* ===== Pipeline ===== */
+.pipe-flow{margin-top:70px;position:relative}
+.pipe-flow::before{content:"";position:absolute;top:26px;left:4%;right:4%;height:1px;background:linear-gradient(90deg,transparent,var(--line2) 12%,var(--line2) 88%,transparent)}
+.pipe{display:grid;grid-template-columns:repeat(7,1fr);gap:14px;position:relative}
+@media(max-width:1020px){.pipe{grid-template-columns:repeat(2,1fr)}.pipe-flow::before{display:none}}
+@media(max-width:520px){.pipe{grid-template-columns:1fr}}
+.step{padding:0 4px;text-align:center}
+.step .pin{width:52px;height:52px;margin:0 auto 20px;border-radius:16px;background:var(--card);border:1px solid var(--line2);display:grid;place-items:center;font-family:var(--serif);font-weight:900;font-size:16px;color:var(--gold2);transition:all .35s;position:relative;z-index:2}
+.step:hover .pin{border-color:var(--gold);box-shadow:0 0 26px rgba(230,179,77,.25);transform:translateY(-4px)}
+.step h4{font-size:16px;margin-bottom:8px;font-family:var(--sans);font-weight:700;color:var(--ink)}
+.step p{font-size:12.5px;color:var(--muted);line-height:1.7}
+.step.gate .pin{border-color:rgba(255,93,70,.55);color:#ff9a8a}
+.step.gate:hover .pin{box-shadow:0 0 26px rgba(255,93,70,.25)}
+.step .gatemark{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;color:#ff9a8a;border:1px solid rgba(255,93,70,.45);border-radius:999px;padding:2px 10px;margin-bottom:10px}
+.pipe-note{text-align:center;margin-top:56px;font-family:var(--serif);font-size:19px;color:var(--ink)}
+.pipe-note b{color:var(--gold2)}
+
+/* ===== Trio ===== */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+@media(max-width:900px){.trio{grid-template-columns:1fr}}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:40px 34px;transition:all .35s;position:relative;overflow:hidden}
+.feat::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ember),var(--gold));opacity:0;transition:opacity .35s}
+.feat:hover{transform:translateY(-6px);border-color:rgba(230,179,77,.35);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.feat:hover::before{opacity:1}
+.feat .idx{font-family:var(--serif);font-size:13px;color:var(--fire);letter-spacing:3px;font-weight:700}
+.feat h3{font-size:22px;margin:14px 0 14px}
+.feat p{font-size:14.5px}
+.feat .ex{margin-top:20px;background:rgba(0,0,0,.3);border:1px solid var(--line);border-left:2px solid var(--gold);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--gold2)}
+
+/* ===== Lenses ===== */
+.tabs{display:flex;gap:12px;margin-top:52px;flex-wrap:wrap}
+.tab{padding:11px 26px;border-radius:999px;border:1px solid var(--line2);color:var(--body);font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;background:transparent;font-family:var(--sans)}
+.tab.active{background:linear-gradient(135deg,var(--ember),var(--gold));color:#181003;border-color:transparent;box-shadow:0 4px 22px rgba(255,110,40,.3)}
+.tab:hover:not(.active){border-color:var(--gold);color:var(--gold2)}
+.lens-panel{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:44px 42px;display:none}
+.lens-panel.active{display:block;animation:fade .5s cubic-bezier(.16,.8,.26,1)}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1}}
+.lens-panel h3{font-size:24px;margin-bottom:8px}
+.lens-panel .tagline{color:var(--gold2);font-size:14px;margin-bottom:26px;font-family:var(--serif)}
+.lens-cols{display:grid;grid-template-columns:1fr 1fr;gap:4px 44px}
+@media(max-width:760px){.lens-cols{grid-template-columns:1fr}}
+.lens-item{font-size:14px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.lens-item b{color:var(--ink);font-weight:600}
+.lens-item .k{display:inline-block;min-width:44px;color:var(--fire);font-weight:700;font-size:12px;letter-spacing:1px;margin-right:10px}
+
+/* ===== Compare ===== */
+.cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:20px;margin-top:56px;background:var(--card)}
+.cmp{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+.cmp th,.cmp td{padding:18px 20px;text-align:left;border-bottom:1px solid var(--line)}
+.cmp tr:last-child td{border-bottom:none}
+.cmp th{color:var(--ink);font-size:12px;letter-spacing:2px;font-weight:700;background:rgba(255,255,255,.02)}
+.cmp td:first-child{color:var(--ink);font-weight:600}
+.cmp tr:hover td{background:rgba(255,255,255,.015)}
+.cmp .ours{color:var(--gold2);font-weight:700}
+.cmp th.ours{color:var(--gold2)}
+
+/* ===== Quickstart ===== */
+.qs-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;margin-top:56px;align-items:start}
+@media(max-width:900px){.qs-grid{grid-template-columns:1fr}}
+.qs-step{display:flex;gap:20px;padding:22px 0;border-bottom:1px dashed var(--line)}
+.qs-step .n{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(230,179,77,.4);display:grid;place-items:center;font-family:var(--serif);font-weight:900;color:var(--gold2);font-size:15px}
+.qs-step h4{font-size:16px;font-family:var(--sans);font-weight:700;color:var(--ink)}
+.qs-step p{font-size:13.5px;color:var(--muted)}
+.codebox{background:#0a0c11;border:1px solid var(--line2);border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.codebox .bar{display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted);letter-spacing:1px}
+.codebox .bar .dots{display:flex;gap:7px;margin-right:16px}
+.codebox .bar .dots i{width:11px;height:11px;border-radius:50%}
+.codebox .bar .dots i:nth-child(1){background:#ff5f57}.codebox .bar .dots i:nth-child(2){background:#febc2e}.codebox .bar .dots i:nth-child(3){background:#28c840}
+.codebox pre{padding:24px;font-family:var(--mono);font-size:13px;line-height:2;color:#c9d4ec;overflow-x:auto}
+.codebox .cm{color:var(--muted)}
+.codebox .kw{color:var(--gold2)}
+.copy-btn{margin-left:auto;background:transparent;border:1px solid var(--line2);color:var(--body);font-size:12px;padding:5px 16px;border-radius:999px;cursor:pointer;transition:all .25s;font-family:var(--sans)}
+.copy-btn:hover{color:var(--gold2);border-color:var(--gold)}
+
+/* ===== Redline ===== */
+.redline{padding:110px 0;text-align:center;position:relative;overflow:hidden}
+.redline::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 120%,rgba(255,80,40,.1),transparent 65%)}
+.redline .h2{font-size:clamp(28px,4vw,42px)}
+.red-chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px;justify-content:center;position:relative}
+.chip{border:1px solid rgba(255,120,90,.35);color:#ffb9a8;font-size:13px;padding:9px 20px;border-radius:999px;background:rgba(255,90,60,.05);transition:all .3s}
+.chip:hover{border-color:rgba(255,120,90,.7);transform:translateY(-2px)}
+
+/* ===== Footer ===== */
+footer{padding:70px 0 56px;text-align:center;border-top:1px solid var(--line)}
+footer .brand{justify-content:center;margin-bottom:18px}
+footer p{font-size:13px;color:var(--muted)}
+footer p a{color:var(--gold2);border-bottom:1px solid transparent;transition:border-color .25s}
+footer p a:hover{border-color:var(--gold2)}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top"><span class="flame">🔥</span>ASU FORGE</a>
+    <div class="nav-links">
+      <a href="#pain">痛点</a>
+      <a href="#pipeline">锻造流水线</a>
+      <a href="#unique">三大独创</a>
+      <a href="#lenses">岗位透镜</a>
+      <a href="#compare">对比</a>
+      <a href="#start">快速开始</a>
+      <a class="nav-cta" href="https://github.com/ZhiqingHeyi/asu-resume-forge" target="_blank">GitHub ★</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="top">
+  <div class="hero-glow"></div>
+  <div class="embers">
+    <i style="left:12%;animation-delay:0s"></i><i style="left:24%;animation-delay:2.2s"></i>
+    <i style="left:38%;animation-delay:4.1s"></i><i style="left:55%;animation-delay:1.3s"></i>
+    <i style="left:68%;animation-delay:3.4s"></i><i style="left:80%;animation-delay:5.2s"></i>
+    <i style="left:90%;animation-delay:2.8s"></i>
+  </div>
+  <div class="wrap" style="position:relative">
+    <span class="hero-kicker reveal">开源 · MIT · 适配 CLAUDE CODE / CODEX / WORKBUDDY</span>
+    <h1 class="reveal d1">把真实经历<br><span class="row2">锻造成作品级履历</span></h1>
+    <div class="hero-rule reveal d2"></div>
+    <p class="sub reveal d2">蒸馏阿酥式高密度叙事方法，融合四类岗位的锻造实战。<br><b>只放大，不虚构</b> —— 每一句强表述，都能守住面试官 15 分钟的连续追问。<br><span style="opacity:.55;font-size:14px">站内示例数据均为虚构构造，不对应任何真实个人。</span></p>
+    <div class="cta-row reveal d3">
+      <a class="btn btn-fire" href="#start">⚒ 开始锻造</a>
+      <a class="btn btn-ghost" href="https://github.com/ZhiqingHeyi/asu-resume-forge" target="_blank">在 GitHub 查看 →</a>
+    </div>
+    <div class="stats reveal d4">
+      <div class="stat"><b>F1–F7</b><span>锻造工序</span></div>
+      <div class="stat"><b>4</b><span>岗位透镜</span></div>
+      <div class="stat"><b>16</b><span>夸大红线</span></div>
+      <div class="stat"><b>15′</b><span>追问测试</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 01 PAIN ===== -->
+<section id="pain">
+  <div class="wrap">
+    <div class="shead reveal"><span class="snum">01 / THE PAIN</span><span class="line"></span></div>
+    <h2 class="h2 reveal">简历最大的敌人，不是经历普通<br>是写成了「职责流水账」</h2>
+    <p class="lead reveal d1">甚至是一个算错的百分比——它会让面试官怀疑你简历上的所有数字。看这道工序抓出的硬伤（示例数据）：</p>
+    <div class="ba-grid">
+      <div class="ba-card before reveal d1">
+        <span class="ba-tag">BEFORE · 流水账</span>
+        <pre>• 负责智能客服工单系统的开发，使用大模型
+  做意图分类，提升了客服效率。
+
+• 工单平均处理时长从 4 小时缩短到 30 分钟
+  （<span class="strike">提效 8 倍</span>），人力成本降低到原来的
+  <span class="strike">1/10</span>。</pre>
+        <div class="ba-note"><b>病灶 ——</b> 4h→30min 是耗时缩短 87.5%（速度提升 8 倍），"提效 8 倍"口径不存在；仅靠提速成本最低只能到 1/8，"1/10" 缺归因即矛盾；职责无边界、无难点、无链路。</div>
+      </div>
+      <div class="ba-vs reveal d2"><span>VS</span></div>
+      <div class="ba-card after reveal d2">
+        <span class="ba-tag">AFTER · 锻造后</span>
+        <pre>• 指标与效果：处理时长 4h→30min（缩短
+  <span class="hl">87.5%</span>）；引入大小模型分层路由后成本降至
+  <span class="hl">1/10</span>；首次分派准确率 71%→93%。
+• 我的职责：<span class="hl">项目 Owner</span>，完全负责从 0 到 1：
+  难点——工单口语化、长尾意图多，置信度低；
+  解法——规则 + 小模型 + 大模型三级路由。
+<span class="hl">↳ 技术链路</span>：文本清洗脱敏 → 向量化
+  → 小模型意图分类 → 置信度判定 → 升级大模型
+  → 规则兜底 → 分派执行 → 复核回流标注</pre>
+        <div class="ba-note"><b>锻后 ——</b> 口径正确可重算、成本有独立归因；角色强度显性；难点→解法→收益成链；链路行给面试官递上"追问的抓手"。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 PIPELINE ===== -->
+<section id="pipeline" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="shead reveal"><span class="snum">02 / THE FORGE</span><span class="line"></span></div>
+    <h2 class="h2 reveal">七道工序，两道不可跳过的门禁</h2>
+    <p class="lead reveal d1">不过 F5 指标校验与 F7 红线门禁，不算成稿。</p>
+    <div class="pipe-flow">
+      <div class="pipe">
+        <div class="step reveal"><div class="pin">F1</div><h4>事实账本</h4><p>只登记事实不登记修辞，存疑信息进待确认清单</p></div>
+        <div class="step reveal d1"><div class="pin">F2</div><h4>六问重构</h4><p>为什么做→负责哪段→难点→设计→结果→证明</p></div>
+        <div class="step reveal d1"><div class="pin">F3</div><h4>岗位透镜</h4><p>同一份事实，按 PM/全栈/架构/FDE 切换叙事</p></div>
+        <div class="step reveal d2"><div class="pin">F4</div><h4>链路行铸造</h4><p>↳ 箭头链写清实现路径，每环可讲 3 分钟</p></div>
+        <div class="step gate reveal d2"><div class="pin">F5</div><span class="gatemark">门禁 ★</span><h4>指标口径校验</h4><p>重算 · 自洽 · 可归因，逐数字交叉验证</p></div>
+        <div class="step reveal d3"><div class="pin">F6</div><h4>抓手埋点</h4><p>埋入面试官可追问、你正好能答的技术锚点</p></div>
+        <div class="step gate reveal d3"><div class="pin">F7</div><span class="gatemark">门禁 ★</span><h4>红线门禁</h4><p>16 类夸大模式逐条过，越级与虚构零容忍</p></div>
+      </div>
+    </div>
+    <p class="pipe-note reveal">铁律：<b>只放大，不虚构。</b>守不住 15 分钟追问的句子，降级或删除。</p>
+  </div>
+</section>
+
+<!-- ===== 03 UNIQUE ===== -->
+<section id="unique">
+  <div class="wrap">
+    <div class="shead reveal"><span class="snum">03 / WHY US</span><span class="line"></span></div>
+    <h2 class="h2 reveal">三大独创，来自真实锻造实战</h2>
+    <p class="lead reveal d1">不是纸上谈兵的方法论——每一招都能在「同一份事实 → 四份岗位简历」的锻造里验证。</p>
+    <div class="trio">
+      <div class="feat reveal d1">
+        <div class="idx">独创 · 壹</div>
+        <h3>岗位透镜</h3>
+        <p>事实账本只有一本，叙事透镜各配一副。同一段经历，PM 版讲业务结果，全栈版讲实现链路，架构版讲取舍，FDE 版讲交付闭环——数字完全一致，叙事各不相同。</p>
+        <div class="ex">架构取舍：复用开源 RAG 框架而非自研<br>向量检索引擎，换取 1.5 个月上线窗口</div>
+      </div>
+      <div class="feat reveal d2">
+        <div class="idx">独创 · 贰</div>
+        <h3>链路行 Chain Line</h3>
+        <p>每个核心项目一条 ↳ 箭头链，把"搭建了 xx 平台"还原成组件级数据流。过筛时证明真做过，面试时把追问引向你最熟的领域。</p>
+        <div class="ex">↳ 意图识别 → Function Calling 工具调用<br>→ RAG 混合检索 → SSE 流式输出</div>
+      </div>
+      <div class="feat reveal d3">
+        <div class="idx">独创 · 叁</div>
+        <h3>指标口径校验</h3>
+        <p>重算、自洽、可归因三关。抓出「提效 8 倍 + 成本 1/10」这类双硬伤（口径不存在，且成本低于理论下限）——一个错数，毁掉所有数字的可信度。</p>
+        <div class="ex">压缩率 = (原时长 − 新时长) / 原时长<br>每个派生数字都要能当场算清</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 LENSES ===== -->
+<section id="lenses" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="shead reveal"><span class="snum">04 / JOB LENSES</span><span class="line"></span></div>
+    <h2 class="h2 reveal">四副岗位透镜，拒绝一份简历海投</h2>
+    <div class="tabs reveal d1">
+      <button class="tab active" data-lens="pm">AI 产品经理</button>
+      <button class="tab" data-lens="fs">Agent 全栈工程师</button>
+      <button class="tab" data-lens="arch">中台架构师</button>
+      <button class="tab" data-lens="fde">FDE 前向交付</button>
+    </div>
+    <div class="lens-panel active" data-lens="pm">
+      <h3>产品透镜</h3>
+      <div class="tagline">叙事重心：洞察 → 决策 → 业务结果。技术是手段，业务变化是主角。</div>
+      <div class="lens-cols">
+        <div class="lens-item"><span class="k">段首</span><b>"背景与痛点：……"</b> 从业务问题开场</div>
+        <div class="lens-item"><span class="k">指标</span>效率提升 · 成本下降 · 转化率 · 释放工时</div>
+        <div class="lens-item"><span class="k">职责</span>需求定义 · 交互创新 · 评测驱动迭代</div>
+        <div class="lens-item"><span class="k">链路</span>↳ 产品链路（技术词以产品机制串联）</div>
+      </div>
+    </div>
+    <div class="lens-panel" data-lens="fs">
+      <h3>全栈透镜</h3>
+      <div class="tagline">叙事重心：实现链路 + 工程质量。每个项目都要能还原出数据流向。</div>
+      <div class="lens-cols">
+        <div class="lens-item"><span class="k">段首</span><b>"背景与目标：……"</b> 从技术问题开场</div>
+        <div class="lens-item"><span class="k">矩阵</span>Function Calling · MCP · 上下文工程 · RAG · SSE</div>
+        <div class="lens-item"><span class="k">指标</span>准确率 · 延迟 · 调用量 · 数据集规模</div>
+        <div class="lens-item"><span class="k">链路</span>↳ 技术链路，写到组件级（谁调用谁）</div>
+      </div>
+    </div>
+    <div class="lens-panel" data-lens="arch">
+      <h3>架构透镜</h3>
+      <div class="tagline">叙事重心：权衡与取舍。架构师的简历里必须有"为什么这样选"。</div>
+      <div class="lens-cols">
+        <div class="lens-item"><span class="k">句式</span><b>"架构取舍：牺牲 A，换取 B"</b></div>
+        <div class="lens-item"><span class="k">指标</span>系统规模 · 复用率 · 隔离边界 · 可观测</div>
+        <div class="lens-item"><span class="k">职责</span>分层设计 · 选型理由 · 演进路径</div>
+        <div class="lens-item"><span class="k">链路</span>↳ 架构链路：注册中心 → 编排 → 回退 → 隔离</div>
+      </div>
+    </div>
+    <div class="lens-panel" data-lens="fde">
+      <h3>FDE 透镜</h3>
+      <div class="tagline">叙事重心：交付闭环 + 现场能力。价值在落地之后还在增长。</div>
+      <div class="lens-cols">
+        <div class="lens-item"><span class="k">栈</span>Docker-Compose · Nginx 反代 · 鉴权打通 · 日志排障</div>
+        <div class="lens-item"><span class="k">指标</span>覆盖部门数 · 零事故 · 验收通过率 · 复购式使用</div>
+        <div class="lens-item"><span class="k">职责</span>需求转化 · 私有化交付 · 培训推广 · 复盘迭代</div>
+        <div class="lens-item"><span class="k">链路</span>↳ 交付链路：调研→勘察→部署→打通→培训→复盘</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 COMPARE ===== -->
+<section id="compare">
+  <div class="wrap">
+    <div class="shead reveal"><span class="snum">05 / LANDSCAPE</span><span class="line"></span></div>
+    <h2 class="h2 reveal">站在酥系开源的肩膀上，再进一步</h2>
+    <p class="lead reveal d1">我们研究了社区里每一个阿酥系项目，吸收各自所长，补上了它们都没覆盖的一块：<b style="color:var(--ink)">经过真实多岗位锻造验证的实战规则</b>。</p>
+    <div class="cmp-wrap reveal d2">
+      <table class="cmp">
+        <tr><th>能力</th><th>ASu-resume-skills (306★)</th><th>sushen</th><th>sharpen-technical-resume</th><th class="ours">ASU FORGE（本项目）</th></tr>
+        <tr><td>证据审计 / 原子主张</td><td>✓ 强</td><td>✓</td><td>✓</td><td class="ours">✓ 吸收</td></tr>
+        <tr><td>脚本化校验 / 渲染</td><td>✓ CI + tests</td><td>✓ audit.py</td><td>—</td><td class="ours">规划中（欢迎 PR）</td></tr>
+        <tr><td>平台无关 Prompt</td><td>Codex 插件</td><td>—</td><td>✓ 强</td><td class="ours">✓ 标准 SKILL.md</td></tr>
+        <tr><td>包装强度分级</td><td>—</td><td>—</td><td>✓ 三档</td><td class="ours">✓ 吸收为追问测试</td></tr>
+        <tr><td>岗位透镜（PM/全栈/架构/FDE）</td><td>—</td><td>—</td><td>—</td><td class="ours">★ 独创</td></tr>
+        <tr><td>链路行格式（Chain Line）</td><td>—</td><td>—</td><td>—</td><td class="ours">★ 独创</td></tr>
+        <tr><td>指标口径校验（公式卡 + 门禁）</td><td>部分</td><td>部分</td><td>部分</td><td class="ours">★ 独创</td></tr>
+        <tr><td>真实多岗位改造案例库</td><td>示例数据</td><td>样例</td><td>1 个示例</td><td class="ours">★ 4 岗位实战脱敏</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 QUICKSTART ===== -->
+<section id="start" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="shead reveal"><span class="snum">06 / GET STARTED</span><span class="line"></span></div>
+    <h2 class="h2 reveal">三分钟，把锻造炉装进你的 AI</h2>
+    <div class="qs-grid">
+      <div class="reveal d1">
+        <div class="qs-step"><div class="n">壹</div><div><h4>克隆仓库</h4><p>拿到 skills/asu-resume-forge 整个目录</p></div></div>
+        <div class="qs-step"><div class="n">贰</div><div><h4>装入 Skill 目录</h4><p>复制到 Claude Code / WorkBuddy / Codex 的 skills 路径</p></div></div>
+        <div class="qs-step"><div class="n">叁</div><div><h4>说一句"改简历"</h4><p>触发词自动命中：改简历 / 简历锻造 / 阿酥 / resume polish</p></div></div>
+        <div class="qs-step"><div class="n">肆</div><div><h4>过门禁，拿成稿</h4><p>诊断 → 锻造稿 → 修改说明 → 追问备考清单，四件套交付</p></div></div>
+      </div>
+      <div class="codebox reveal d2">
+        <div class="bar"><span class="dots"><i></i><i></i><i></i></span>terminal<button class="copy-btn" id="copyBtn">复制</button></div>
+<pre id="qsCode"><span class="cm"># 1. 克隆</span>
+git clone https://github.com/ZhiqingHeyi/asu-resume-forge.git
+
+<span class="cm"># 2. 安装到 Claude Code</span>
+cp -r asu-resume-forge/skills/asu-resume-forge ~/.claude/skills/
+
+<span class="cm"># 3. 安装到 WorkBuddy</span>
+cp -r asu-resume-forge/skills/asu-resume-forge ~/.workbuddy/skills/
+
+<span class="cm"># 4. 开锻（在 AI 对话里说）</span>
+<span class="kw">"用 asu-resume-forge 锻造我的简历，
+ 目标岗位：AI Agent 工程师，模式 Forge。"</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REDLINE ===== -->
+<div class="redline">
+  <div class="wrap reveal" style="position:relative">
+    <h2 class="h2">只放大，不虚构</h2>
+    <p class="lead" style="margin:16px auto 0">本 Skill 是对公开写作模式的分析与抽象，与阿酥（LofiSu）本人无关。<br>方法的价值在于让真实贡献获得更好的表达——任何使用者不得用它虚构事实。</p>
+    <div class="red-chips">
+      <span class="chip">不虚构经历与数字</span>
+      <span class="chip">角色词不得越级</span>
+      <span class="chip">0→1 必须定义"0"</span>
+      <span class="chip">极值词必须有全集</span>
+      <span class="chip">规划不得写成已上线</span>
+      <span class="chip">热词必须能讲 3 分钟</span>
+      <span class="chip">作品与项目必须互相印证</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><span class="flame">🔥</span>ASU FORGE</div>
+    <p>阿酥式简历锻造炉 · MIT License · <a href="https://github.com/ZhiqingHeyi/asu-resume-forge" target="_blank">GitHub</a></p>
+    <p style="margin-top:10px">致谢：<a href="https://github.com/Claycui828/ASu-resume-skills" target="_blank">ASu-resume-skills</a> · <a href="https://github.com/junlin-233/sushen" target="_blank">sushen</a> · <a href="https://github.com/susie-jpg/sharpen-technical-resume" target="_blank">sharpen-technical-resume</a> · 方法灵感源自 LofiSu 公开简历</p>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.lens-panel').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.querySelector('.lens-panel[data-lens="'+t.dataset.lens+'"]').classList.add('active');
+}));
+document.getElementById('copyBtn').addEventListener('click',function(){
+  navigator.clipboard.writeText(document.getElementById('qsCode').innerText).then(()=>{
+    this.textContent='已复制 ✓';setTimeout(()=>this.textContent='复制',1600);
+  });
+});
+</script>
+</body>
+</html>
